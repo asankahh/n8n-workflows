@@ -1,0 +1,187 @@
+{
+  "name": "VPN001 Backup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "00bde80f-ec1a-489a-a54a-addbd091d9ba",
+      "name": "Weekly Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "command": "tar -czf /tmp/wg_backup.tar.gz /root/wgdashboard/conf /root/wgdashboard/data"
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "505b89a0-0a1c-47d7-9d69-a1fffd408fac",
+      "name": "Create a .gz file",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "l8BwSsJ7iQyK4U1b",
+          "name": "NS-VM-OVPN-1 SSH Key for n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "resource": "file",
+        "operation": "download",
+        "path": "/tmp/wg_backup.tar.gz",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "fe34dde2-3314-4998-bcb1-e08b8e14beb0",
+      "name": "Download .gz file",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "l8BwSsJ7iQyK4U1b",
+          "name": "NS-VM-OVPN-1 SSH Key for n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=wg_backup_{{$now.toFormat('yyyy-MM-dd_HH-mm-ss')}}.tar.gz",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1ZM4zeMT8xhMA9jNLoBhYeaaCqaatzwrD",
+          "mode": "list",
+          "cachedResultName": "WGFRA Backup",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1ZM4zeMT8xhMA9jNLoBhYeaaCqaatzwrD"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "72bbe389-1436-43ae-9f6e-40d1e620fff8",
+      "name": "Upload .gz file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "mb2iNBA1gr4PxKRS",
+          "name": "IT @ NS - Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "command": "rm /tmp/wg_backup.tar.gz"
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        896,
+        0
+      ],
+      "id": "81b591c4-0816-46e8-bb9f-fd46f5e91535",
+      "name": "Remove .gz file from the server",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "l8BwSsJ7iQyK4U1b",
+          "name": "NS-VM-OVPN-1 SSH Key for n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Weekly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create a .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a .gz file": {
+      "main": [
+        [
+          {
+            "node": "Download .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download .gz file": {
+      "main": [
+        [
+          {
+            "node": "Upload .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload .gz file": {
+      "main": [
+        [
+          {
+            "node": "Remove .gz file from the server",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timeSavedPerExecution": 30
+  },
+  "versionId": "b07ec7ac-86a7-478e-a719-e7fc503c5a89",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac66f3afaba244bdb86de88165094069f3e5c9866e149fc9b2a5f36d9485a343"
+  },
+  "id": "wpMnCZnzhqkDMPWp",
+  "tags": [
+    {
+      "updatedAt": "2025-11-10T10:28:43.584Z",
+      "createdAt": "2025-11-10T10:28:43.584Z",
+      "id": "aevIYpIkM5mjznF5",
+      "name": "Infrastructure"
+    }
+  ]
+}

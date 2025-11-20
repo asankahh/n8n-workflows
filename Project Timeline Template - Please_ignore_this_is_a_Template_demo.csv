@@ -1,0 +1,348 @@
+﻿No,Name,Status,Priority,Labels,Assignee Email,Start Date,Duration ,Due Date,Notes,Blocked By (Dependencies),Blocking (Dependencies)
+1.0,Phase 1: Initiation,,Urgent,,,11-24-25,,11-28-25,,,
+1.1,Account Management items,Backlog,Urgent,Initiation,alparslan@veritas-technology.io,11-24-25,4,11-28-25,the following documents are to be sent by account manager ,,
+1.10.1,Onboarding Document ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,"Mpay ,Aninda ,Cryptobox ,Sempico ,Myaffiliates "
+1.10.2,Brandbook,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.10.3,CMS Layout Document ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.10.4,Gamification document ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.2,Project Management items,Backlog,Urgent,Initiation,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+1.20.1,Confirm MOU with Levi ,Backlog,Urgent,Initiation,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+1.20.2,Send project Scope and MOU to Client ,Backlog,Urgent,Initiation,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+1.20.3,Send project Timeline ,Backlog,Urgent,Initiation,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+1.20.4,License invoice to be sent to operator ,Backlog,Urgent,Initiation,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+1.20.5,Internal Jira Project Setup,Backlog,Urgent,Initiation,hazem.e@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.20.6,Integrations Activation ,Backlog,Urgent,Initiation,chelsea.a@veritas-technology.io,11-24-25,4,11-28-25,"Please raise a single jira ticket to request for the activation of the following items on EGT jira project: 
+
+    Inbox messages 
+    EGTD games 
+    Configurator 
+    My offers cancel Button  
+    Cashback 
+    Tableau 
+    Remove Live Chat Icon
+    Change Language Button
+    Eye Icon for Show/Hide Password
+    Enable Max Single Bet Limit - mention it as Max Single Bet Limit & Max total Bet Limit (alpi advised the same)
+    copy system messages from the baseline (templates and content)
+
+to be raised after confirmation:
+     Sportsbook 
+    MyAffiliates
+    pop-up template 
+
+These to be raised later in the project :
+    Sempico - after cian creates the account 
+
+",,
+1.3,Additional Services Confirmation ,Backlog,Urgent,Initiation,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,"need to adjust the message according to the client but this is a draft of what have been communicated before 
+
+Ahead of today's kick-off meeting, I would like to clarify some pending items.
+Setup Fees and Process
+    Game License Fee: €10,000 per year, paid per brand. We ask for your consent for us to start this process.
+    Alias Domains: The first 25 aliases will be registered by us for free with the Anjouan authority. However, you must purchase these alias domains yourself and provide us with proof of purchase first.
+    Platform Fee: €15,000 for the installation of the EGT platform. If the website goes live by September 15, 2025, this fee will be refunded as a deduction from your initial invoice.
+Additional Services That Require Your Consent
+    Sports Betting (Sportsbook): There are minimum monthly requirements as outlined in the MOU. Confirm whether you want to receive this service.
+    Virtual Sports: There are minimum monthly requirements as outlined in the MOU. Confirm whether you want to receive this service.
+    Email Messaging: A dedicated IP is recommended for marketing messages. The annual fee is €750. Confirm if you want to continue with the dedicated IP.
+We look forward to obtaining your approval for the above items and starting the process without delay.
+Best regards",,
+1.30.1,Dedicated IPs ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,A dedicated IP is recommended for marketing messages. The annual fee is €750. Confirm if you want to continue with the dedicated IP.,,
+1.30.2,Virtual Sports,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,there are minimum monthly requirements as outlined in the MOU. Confirm whether you want to receive this service,,
+1.30.3,Sports Betting (Sportsbook),Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,There are minimum monthly requirements as outlined in the MOU. Confirm whether you want to receive this service.,,
+1.4,Onboarding Meetings ,Backlog,Urgent,Initiation,alparslan@veritas-technology.io,11-24-25,4,11-28-25,,,"Finalize all the asset required from the operator ,Mailgun ,Comm100/ Live chat ,Google Analytics ,Hotjar ,Tableau "
+1.40.1,Kick off meeting ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.40.2,agree on a weekly call time and day ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+1.40.3,CRM / CMS follow up Meeting ,Backlog,Urgent,Initiation,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+2.0,Phase 1 : Initiation - Payment methods,,Urgent,,,11-24-25,,11-24-25,,,
+2.1,Mpay ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"Send a message on the Mpay group on teams 
+
+",Onboarding Document ,"Payments: Activation Requests ,Payments Testing "
+2.10.1,Send an email to PSP provider for API keys  ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"Subject: Cryptobox - Activation Request - [Operator Name]
+Context: 
+
+
+please also note the following based on the client's feedback [attach a screenshot of Cryptobox's payment rates and if the client need it or not for each method]",,
+2.10.2,"Raise a ""NX# - [Client Name] - Payments Methods"" to EGT ",Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.10.3,Send the API keys to EGT ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.10.4,Test Payment methods once activated ,Backlog,Urgent,Payment methods,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+2.2,Aninda ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"once the onboarding is retrieved from the operator, send an email info@anindapays.com and finance@anindapays.com to request the activation.
+
+",Onboarding Document ,"Payments: Activation Requests ,Payments Testing "
+2.20.1,send an email to PSP provider ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"Subject: Aninda - Activation Request - [Operator Name]
+Context: 
+Hello team,
+
+Please activate Aninda for [Operator Name]. You can send the API keys to alparslan@veritas-technology.io. 
+
+please also note the following based on the client's feedback [attach a screenshot of Aninda's payment rates and if the client need it or not for each method]",,
+2.20.2,"Raise a ""NX# - [Client Name] - Payments Methods"" to EGT ",Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.20.3,Send the API keys to EGT ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.20.4,Test Payment methods once activated ,Backlog,Urgent,Payment methods,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+2.3,Cryptobox ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"once the onboarding is retrevied from the operator, send an email  support@simple-pay.org to request the activation.
+
+",Onboarding Document ,"Payments: Activation Requests ,Payments Testing "
+2.30.1,Send an email to PSP provider ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"emails: support@simple-pay.org
+Subject: Cryptobox - Activation Request - [Operator Name]
+Context: 
+please also note the following based on the client's feedback [attach a screenshot of Cryptobox's payment rates and if the client need it or not for each method]",,
+2.30.2,"Raise a ""NX# - [Client Name] - Payments Methods"" to EGT ",Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.30.3,Send the API keys to EGT ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,,,
+2.30.4,Test Payment methods once activated ,Backlog,Urgent,Payment methods,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+2.4,Payments: Activation Requests ,Backlog,Urgent,Payment methods,haya.a@nexus-solutions.io,11-24-25,4,11-28-25,"Raise a ticket on EGT's jira 
+    Grid cashier view
+    Fingerprint
+    Disable KYC verification for Manual Withdrawals
+    Player communication templates - payment methods
+    Automatic status change from Processing to Expired for Deposits - 1h 30min
+","Mpay ,Aninda ,Cryptobox ",
+3.0,Phase 1 : Initiation - Games,,,,,11-24-25,,11-24-25,,,
+3.1,Amusnet,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,"this is to be activated only on the day of Go-live
+Invoicing Note: invoicing only starts when we send a request to egt to activate amusnet ",,
+3.2,Hub88,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,"can be activated but we need to ensure the GGR Cap is on
+Invoicing Note: invoicing only starts when we request the GGR cap to be removed ",,Games Testing 
+3.20.1,Inform Hub88 of the new operator on the HUBB slack group ,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+3.20.2,provide the URL in the operator thread with HUB88 ,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+3.1,EGTD Games ,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,"raise a ticket for activation to EGT 
+Invoicing Note: invoicing only starts when there is traffic ",,Games Testing 
+3.10.1,Raise a ticket for Activation with EGT ,Backlog,Urgent,Games,cian.m@nexus-solutions.io,11-24-25,4,11-28-25,,,
+4.0,Phase 1 : Initiation - Additional Integrations,,,,,12-01-25,4,12-05-25,,,
+4.1,Mailgun ,Backlog,Urgent,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,15,12-16-25,"the operator should purchase  two additional domains, one for marketing and another for system messages. ",Onboarding Meetings ,
+4.10.1,Confirm recipient of the domains and emails ,Backlog,Urgent,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,4,12-05-25,,,
+4.10.2,Setup Nameservers,Backlog,High,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,,12-01-25,https://docs.google.com/document/d/1VpAi9YvDPuMA3IYnpCy43Pe9jgVas1brE0cSFJKAEws/edit?usp=sharing ,,
+4.10.3,Create Mailgun subaccount under our main account ,Backlog,Urgent,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,4,12-05-25,"Process manual: https://docs.google.com/document/d/1w_pfGFYW7cpGl7UUdS7axz9DO3j9WhWfiqZbyB8O7O8/edit?tab=t.0
+
+webhook list to be created 
+    Delivered Messages
+    Opens
+    Clicks
+    Spam Complaints
+    Permanent Failure
+    Temporary Failure
+    Unsubscribes",,
+4.10.4,Send the API keys and Screenshots to EGT  ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,4,12-05-25,,,
+4.10.5,Information to be provided to EGT ,Backlog,Urgent,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,4,12-05-25,"Sender email: 
+Sender Name: 
+Sending API key: 
+Key ID:
+HTTP webhook signing key :",,
+4.10.6,Screenshots ,Backlog,Urgent,Additional Integrations,asanka.h@nexus-solutions.io,12-01-25,4,12-05-25,,,
+4.10.7,Raise a ticket to EGT for tracking purposes ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,4,12-05-25,,,
+4.10.8,test mailgun it in BO ,Backlog,Urgent,Additional Integrations,yhlas.g@veritas-technology.io,12-15-25,1,12-16-25,,,
+4.2,Comm100/ Live chat ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,11-24-25,16,12-10-25,,Onboarding Meetings ,
+4.20.1,Confirm which Live chat option the client wants to proceed with ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.20.2,receive the Integration Code ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.20.3,Raise a ticket for activation request to EGT with the code ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.20.4,test the functionality of Live chat ,Backlog,Urgent,Additional Integrations,muteeb.m@veritas-technology.io,12-08-25,2,12-10-25,,,
+4.20.5,"inform the operator to change color, location and test it ",Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,12-08-25,2,12-10-25,,,
+4.3,Sempico ,Backlog,Urgent,Additional Integrations,cian.m@nexus-solutions.io,12-01-25,,12-23-25,"the following pricing shall be considered:
+    OTP : 0.003
+    Promo: 0.008
+",Onboarding Document ,
+4.30.1,Create the Account for OTP and Promo ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,4,12-05-25,,,
+4.30.2,Reach out to Sempico for API keys ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,4,12-05-25,"Send the following message on the group 
+
+Hello, 
+ 
+We have created 2 new channels under our master account for a new operator. 
+ 
+promo username 
+OTP username
+ 
+Can you provide the relevant information so we can pass to EGT?
+Thanks",,
+4.30.3,Raise a ticket to EGT ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,14,12-15-25,"raise a ticket to EGT:
+Title: SMS activation for [Client name]
+Contents: copy paste the message forwarded from sempico, edit the passwords with the ones saved in onepassword ",,
+4.30.4,top-up Sempico account ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-15-25,4,12-19-25,,,
+4.30.5,Test SMS ,Backlog,Urgent,Additional Integrations,yhlas.g@veritas-technology.io,12-19-25,4,12-23-25,,,
+4.4,Google Analytics ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,11-24-25,32,12-26-25,,Onboarding Meetings ,
+4.40.1,ask the operator to create their free account ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.40.2,ask operator to provide admin access to alparslan@veritas-technology.io,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,12-01-25,4,12-05-25,,,
+4.40.3,share the code with EGT for activation ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,12-01-25,4,12-05-25,,,
+4.40.4,To be requested on the day of go-live ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-05-25,21,12-26-25,,,
+4.5,Myaffiliates ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,11-24-25,15,12-09-25,,Onboarding Document ,
+4.50.1,Share the records to be added by the operator ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.50.2,fill Myaffiliates form ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,11-24-25,4,11-28-25,,,
+4.50.3,Send Myaffiliates form with EGT ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,12-01-25,4,12-05-25,,,
+4.50.4,Confirm Calculations with EGT ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,12-05-25,4,12-09-25,,,
+4.6,Hotjar ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,12-01-25,,12-26-25,,Onboarding Meetings ,
+4.60.1,share the code with EGT ,Backlog,Urgent,Additional Integrations,remzi@veritas-technology.io,12-01-25,4,12-05-25,,,
+4.60.2,To be requested on the day of go-live ,Backlog,Urgent,Additional Integrations,haya.a@nexus-solutions.io,12-05-25,21,12-26-25,,,
+4.7,Tableau ,Backlog,Urgent,Additional Integrations,alparslan@veritas-technology.io,12-01-25,21,12-22-25,"a ticket has been raised to activate this in the environment, this task  is to test that integration ",Onboarding Meetings ,
+4.8,VPN ,Backlog,High,Additional Integrations,haya.a@nexus-solutions.io,12-01-25,5,12-06-25,,Onboarding Meetings ,
+4.80.1,Get the information from provider,Backlog,High,Additional Integrations,haya.a@nexus-solutions.io,11-24-25,,11-24-25,"Get to know how many users, whether users are connecting from a single place such as an office or from multiple locations, what are the locations (Nearest popular capital)
+Share the terms and condition document with the operator",,
+4.80.2,Server Procurement,Backlog,High,Additional Integrations,asanka.h@nexus-solutions.io,11-24-25,,11-24-25,"Setup a bitlaunch account using operator@veritas-technology.io account
+Inform the monthly cost on veritas-finance Slack channel
+get Finance to top up the account for 2 months funds",,
+4.80.3,Server Setup,Backlog,High,Additional Integrations,asanka.h@nexus-solutions.io,11-24-25,,11-24-25,"Setup the server, update, upgrade, install wireguard. setup Docker, NPM",,
+4.80.4,"Peer creation, Sharing, and setup guide",Backlog,Medium,Additional Integrations,asanka.h@nexus-solutions.io,11-24-25,,11-24-25,"Create the no. of peers operator requested,
+Share the links with operator,
+Share the guide on how to install wireguard and use the config panel",,
+5.0,Phase 2: Setup - CRM,,High,,,11-24-25,,11-24-25,,,
+5.1,Finalize all the asset required from the operator ,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,"Campaigns Creation ,Gamification Creation ,Email Template"
+5.10.1,Onboarding Document ,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.2,Campaign selection (Surprise box or Wheelspin),Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.3,Bonus requirement document for all the campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.4,Cashback Campaign conditions,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.5,Visuals for campaigns,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.6,T&C for the campaigns,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.7,Registration campaign / deposit campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.8,Registration campaign / deposit campaign Visuals,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.9,Registration campaign / deposit campaign T&C,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10000000,Birthday campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.11,Acca Boost & Acca Insurance ,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+5.10.12,FS campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,11-24-25,4,,,,
+5.2,Gamification Creation ,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,Finalize all the asset required from the operator ,
+5.20.1,Create bonus 12 or 4,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.2,Create campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.3,Create Sub campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.4,Fill Bonus T&C and my offer informations,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.5,Fill campaign details and visuals ,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.6,Add Campaign T&C,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.7,Edit messages on gamification template on FE,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.20.8,Test if it is working as expected,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.3,Campaigns Creation ,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,Finalize all the asset required from the operator ,
+5.30.1,Create campaign,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.30.2,Create Bonus,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.30.3,Update T&C,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.30.4,Upload visuals,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.30.5,Test as expected,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.4,Email Template,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,Finalize all the asset required from the operator ,
+5.40.1,Marketing email template,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.40.2,Deposit approved,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.40.3,Deposit rejected,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.40.4,Withdrawal approved,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.40.5,Withdrawal rejected,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.40.6,PSP email Template ,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.5,SMS Template,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.50.1,Marketing SMS,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.50.2,PSP SMS,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.6,Inbox Template,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.60.1,Inbox for PSP,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.60.2,Inbox for Marketing,Backlog,High,CRM,simeone.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+5.7,CRM: Go-Live check list,Backlog,High,CRM,simeone.m@veritas-technology.io,12-12-25,0,12-12-25,,,
+6.0,Phase 2: Setup - CMS,,High,,,11-24-25,,11-24-25,,,
+6.1,Finalize all the asset required from the operator ,Backlog,High,CMS,muteeb.m@veritas-technology.io,11-24-25,4,11-28-25,"After the meetings with the operator, we need to finalize a list of requirements which we need from the operator. 
+The assets will be mentioned in the document, e.g. Logos, color palette, banners, social media links etc [ Brand Book ].
+
+Make sure the necessary tickets are raised with EGT if needed.",Onboarding Meetings ,"CMS Build,Configurator Changes,Create Email Template & inform CRM Team to test it,Basic Training "
+6.10.1,Brand Book ,Backlog,High,CMS,muteeb.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+6.10.2,Onboarding Doc,Backlog,High,CMS,muteeb.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+6.10.3,Dimensions Doc,Backlog,High,CMS,muteeb.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+6.10.4,CMS Build Requirements (Finalized by Operator during the meeting),Backlog,High,CMS,muteeb.m@veritas-technology.io,11-24-25,4,11-28-25,,,
+6.2,CMS Build,Backlog,High,CMS,muteeb.m@veritas-technology.io,12-01-25,11,12-12-25,"Set-up list : https://docs.google.com/document/d/1zWQm35HxV7oJ85FOJLNERAMlqPINIdM3/edit
+This is a list of all build related elements from start to finish.",Finalize all the asset required from the operator ,
+6.20.1,Core Site Sections,Backlog,High,CMS,muteeb.m@veritas-technology.io,12-01-25,11,12-12-25,,,
+6.20.1.1,Landing Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.2,Casino Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.3,Live Casino Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.4,Crash Games Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.5,Sport Page (Optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.6,In-Play Page (Optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.7,E-Sports Page (Optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.8,Promotions Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.1.9,Footer Section,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2,Landing Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.1,Looping banners or a single banner,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+0.0.2.2,Tab containers for quick navigation,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.3,Jackpot widget container,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.4,Popular casino games section,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.5,Providers showcase,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.6,Popular live casino section,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.7,Popular crash games section,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.8,Big winners or latest winners display,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.2.9,Ranking module (customizable),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3,Casino Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.1,Looping banners or a single banner (Optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.2,Game Categories,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.3,Providers list,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.4,Jackpot Counter,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.5,Popular Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.6,Top Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.7,Bonus Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.8,VIP Bell Link Games (jackpot counter optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.3.9,New Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.10,Clover Chance Jackpot Games (jackpot counter optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.11,Fruit Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.12,Jackpot Cards Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.13,Bell Link Jackpot Games (jackpot counter optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.14,High Cash Jackpot Games (jackpot counter optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.15,Pragmatic 1000x Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.16,Megaways Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.3.17,Jackpot Cards,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4,Live Casino Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.1,Looping banners or a single banner (Optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.2,Game Categories,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.3,Providers list,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.4,Amusnet Live Casino (jackpot counter optional),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.5,Top Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.6,Turkish Live Casino Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.7,Roulette Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.8,Blackjack Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.4.9,Show Time Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.4.10,Baccarat Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.4.11,Promotions,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5,Crash Games Page,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.1,Game Categories,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.2,Providers list,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.3,Popular Crash Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.4,Plane Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.5,Plinko Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.6,Mine Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.7,Sports Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.5.8,Crash Games,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.6,Sports / In-Play / E-Sports Pages,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.6.1,Unified structure for navigation and content,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,The operator may choose to activate/deactivate these pages depending on business needs,,
+6.20.7,Footer Section,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.1,Link sections,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.2,Shortcuts to main pages,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.3,"Terms & Conditions, Privacy Policy, About Us, etc.",Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.4,License Information,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.5,Help & FAQ,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.6,Contact & Social links,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.7,Payment Methods,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.8,Providers list,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.7.9,Company Logo,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.2.7.10,License content & license logo,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.8,Design & Branding,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.20.8.1,The color scheme will be provided by the operator,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,"Branding elements such as logos, typography, and visual identity can be fully customized",,
+6.20.9,Areas for Operator Contribution,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,"Final decision on color scheme and branding assets
+- Choice of which optional pages (Sports, In-play, E-Sports) to activate
+- Content for banners, icons, promotional campaigns.
+- Customization of footer elements (links, social channels, license details, documents)",,
+6.3,Configurator Changes,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,"The color scheme will be provided by the operator 
+https://docs.google.com/document/d/1ZZnj8TXLNThmA2MQkcEIWGrNdN2WA1-d/edit
+
+Custom CSS
+https://docs.google.com/document/d/1iTa7MPuFUFyNn3-WgMuhJqNM-bE_WK1iVlrC49V56EE/edit?pli=1&tab=t.l65ykfqrg1rp",Finalize all the asset required from the operator ,
+6.30.1,Custom CSS Code Check (Add if missing),Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,,,
+6.4,Create Email Template & inform CRM Team to test it,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,"Email template either taken from slotclover or any other BU but making sure all necessary changes are done as per the BU we are using it for. Or email template can be provided by the operator as well if needed. 
+BO: IPES: Marketing Messages: Email Template.",Finalize all the asset required from the operator ,
+6.5,CMS: Go-live Check list ,Backlog,High,CMS,muteeb.m@veritas-technology.io,09-29-25,11,10-10-25,Check list : https://docs.google.com/spreadsheets/d/1VbY16Z4pQ-cYchkyjrZxDaOUHLxAWTiqxlXZb-uBb-o/edit?gid=0#gid=0,,
+6.6,Games Positioning ,Backlog,High,CMS,ozkan.g@veritas-technology.io,12-01-25,11,12-12-25,"Check and Fix all games positioning in all site
+Games from top 10 Providers https://docs.google.com/spreadsheets/d/17XyamaoTxstZik7Y6gsb0feZr-Ks8Nbd/edit?gid=1361097208#gid=1361097208",,
+7.0,Phase 3: Testing,,High,,,12-15-25,,12-15-25,,,
+7.1,Domain Redirection and BO access ,Backlog,High,Testing,remzi@veritas-technology.io,12-15-25,4,12-19-25,,,
+7.2,CRM testing ,Backlog,High,Testing,simeone.m@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.3,CMS Testing ,Backlog,High,Testing,muteeb.m@veritas-technology.io,10-13-25,11,10-24-25,Final Check of the whole site (looking for anything we might have missed),,
+7.30.1,Check all pages are loading properly,Backlog,High,Testing,muteeb.m@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.30.2,Check all visuals are showing properly,Backlog,High,Testing,muteeb.m@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.30.3,All website elements are working as needed,Backlog,High,Testing,muteeb.m@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.30.4,License is appearing all times before log in and after + Live chat is working,Backlog,High,Testing,muteeb.m@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.4,Games Testing ,Backlog,High,Testing,ozkan.g@veritas-technology.io,10-13-25,11,10-24-25,All top games from top providers need to be tested (especially from turkiye),"Hub88,EGTD Games ",
+7.40.1,Top 10 providers games test (Demo & Play),Backlog,High,Testing,ozkan.g@veritas-technology.io,10-13-25,11,10-24-25,,,
+7.5,Payments Testing ,Backlog,High,Testing,remzi@veritas-technology.io,10-13-25,11,10-24-25,,"Mpay ,Aninda ,Cryptobox ",
+7.6,Sports Testing ,Backlog,High,Testing,remzi@veritas-technology.io,10-13-25,11,10-24-25,,,
+8,Phase 4: Training,,Medium,,,12-01-25,,12-01-25,,,
+8.1,Basic Training ,Backlog,Medium,Training,haya.a@nexus-solutions.io,12-01-25,10,12-11-25,the Basic Training agenda is found in the training folder of each project folder created in the drive ,Finalize all the asset required from the operator ,
+8.10.1,Confirm the availability of the operator for 3 days ,Backlog,Medium,Training,haya.a@nexus-solutions.io,12-01-25,10,12-11-25,,,
+8.10.2,Send the training agenda to operator (update with meeting links ),Backlog,Medium,Training,haya.a@nexus-solutions.io,12-01-25,10,12-11-25,,,
+8.2,Advanced Training ,Backlog,Medium,Training,"haya.a@nexus-solutions.io
+haya.a@nexus-solutions.io",01-15-26,10,01-25-26,the adavnaced Training agenda is found in the training folder of each project folder created in the drive ,,
+8.20.1,Confirm the availability of the operator for 3 days ,Backlog,Medium,Training,haya.a@nexus-solutions.io,01-15-26,10,01-25-26,,,
+8.20.2,Send the training agenda to operator (update with meeting links ),Backlog,Medium,Training,haya.a@nexus-solutions.io,01-15-26,10,01-25-26,,,
+9.0,Phase 5: Go-live & Hypercare,,Low,,,12-29-25,,12-29-25,,,
+9.1,Go-Live Readiness Test  ,Backlog,Low,Go-live & Hypercare,alparslan@veritas-technology.io,12-29-25,1,12-30-25,,,
+9.2,Bi-weekly call with operator Scheduled ,Backlog,Low,Go-live & Hypercare,remzi@veritas-technology.io,12-29-25,14,01-12-26

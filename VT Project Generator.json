@@ -1,0 +1,516 @@
+{
+  "name": "VT Project Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Veritas - Plane Project Generator",
+        "formDescription": "Please provide the URL of the project and the CSV file of the updated project template",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "projectUrl",
+              "placeholder": "https://app.plane.so/nexus-solutions/projects/...............",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "acceptFileTypes": ".csv",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        -144
+      ],
+      "id": "ad6f6bf2-e638-42bb-a43e-b773958b8b55",
+      "name": "Upload CSV Form",
+      "webhookId": "fb5137c4-8dc7-4e75-af94-46e1ca9942f8",
+      "notes": "Entry point. Captures the Project URL and the raw CSV file from the user. Triggers the workflow"
+    },
+    {
+      "parameters": {
+        "url": "https://api.plane.so/api/v1/users/me",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        -144
+      ],
+      "id": "516fc88a-2ecf-43e6-8f3f-e65d3035b320",
+      "name": "Health Check",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Rzwh61ZogiVC8s80",
+          "name": "VT Project Generator"
+        }
+      },
+      "notes": "\"Fail-Fast\" mechanism. Pings the Plane API to ensure the service is reachable and credentials are valid before processing any data."
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get Data from Form\nconst formItem = $('Upload CSV Form').item; \nconst url = formItem.json.projectUrl;\n\n// 2. Regex to extract Workspace Slug AND Project UUID\n// Captures group 1 (slug) and group 2 (uuid)\n// Pattern: plane.so/SLUG/projects/UUID\nconst regex = /plane\\.so\\/([^\\/]+)\\/projects\\/([0-9a-fA-F-]{36})/;\nconst match = url.match(regex);\n\nif (!match) throw new Error(\"Invalid Plane URL. Could not find Workspace Slug or Project ID.\");\n\n// 3. Return ID, Slug, and Binary File\nreturn {\n  json: {\n    workspaceSlug: match[1], // e.g., \"nexus-solutions\"\n    projectId: match[2],     // e.g., \"ee951126...\"\n    originalUrl: url\n  },\n  binary: formItem.binary \n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -144
+      ],
+      "id": "0ddcb9f1-2990-43c9-b535-45ce0d4b2957",
+      "name": "Extract Project ID",
+      "notes": "regex logic. Extracts the Workspace Slug and Project UUID from the user-provided URL and explicitly passes the binary file to the next step."
+    },
+    {
+      "parameters": {
+        "url": "=https://api.plane.so/api/v1/workspaces/{{ $('Extract Project ID').item.json.workspaceSlug }}/projects/{{ $('Extract Project ID').item.json.projectId }}/states",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        672,
+        -80
+      ],
+      "id": "0454a3a4-0f7f-418c-9d66-acec942c6eba",
+      "name": "Fetch States",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Rzwh61ZogiVC8s80",
+          "name": "VT Project Generator"
+        }
+      },
+      "notes": "Dictionary Builders. Dynamically fetches the specific IDs for this project so we can map text (e.g., \"Urgent\") to UUIDs (e.g., \"123-abc\")."
+    },
+    {
+      "parameters": {
+        "url": "=https://api.plane.so/api/v1/workspaces/{{ $('Extract Project ID').item.json.workspaceSlug }}/projects/{{ $('Extract Project ID').item.json.projectId }}/members",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        896,
+        -80
+      ],
+      "id": "89574b9e-7a2e-4c4b-88c4-63d8d0339019",
+      "name": "Fetch Members",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Rzwh61ZogiVC8s80",
+          "name": "VT Project Generator"
+        }
+      },
+      "notes": "Dictionary Builders. Dynamically fetches the specific IDs for this project so we can map text (e.g., \"Urgent\") to UUIDs (e.g., \"123-abc\")."
+    },
+    {
+      "parameters": {
+        "url": "=https://api.plane.so/api/v1/workspaces/{{ $('Extract Project ID').item.json.workspaceSlug }}/projects/{{ $('Extract Project ID').item.json.projectId }}/labels",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1120,
+        -80
+      ],
+      "id": "d906a4fa-8d58-42ed-ab5d-9de374a6e162",
+      "name": "Fetch Labels",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Rzwh61ZogiVC8s80",
+          "name": "VT Project Generator"
+        }
+      },
+      "notes": "Dictionary Builders. Dynamically fetches the specific IDs for this project so we can map text (e.g., \"Urgent\") to UUIDs (e.g., \"123-abc\")."
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1344,
+        -144
+      ],
+      "id": "fad7aaac-e813-409c-b4c2-0f5679db3be7",
+      "name": "Merge Data",
+      "notes": "Synchronization Gate. Configured to \"Append\". It forces the workflow to wait until both the CSV is parsed AND the API metadata is fetched before continuing."
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Dictionaries (Standard)\nconst stateMap = {};\nconst getApiData = (name) => {\n  try {\n    const d = $(name).all(); \n    return (d[0] && d[0].json.results) ? d[0].json.results : d.map(i => i.json);\n  } catch(e) { return []; }\n};\n\ngetApiData('Fetch States').forEach(s => { if(s.name && s.id) stateMap[s.name] = s.id; });\n\nconst memberMap = {};\ngetApiData('Fetch Members').forEach(m => {\n   const email = m.member?.email || m.email;\n   const id = m.member?.id || m.id;\n   if (email) memberMap[email] = id;\n});\n\n// Case Insensitive Label Map\nconst labelMap = {};\ngetApiData('Fetch Labels').forEach(l => { \n    if(l.name && l.id) labelMap[l.name.toLowerCase()] = l.id; \n});\n\n// 2. Get CSV Data & Filter\nconst allInputItems = $input.all();\nconst csvItems = allInputItems.filter(item => {\n    const keys = Object.keys(item.json);\n    // Filter out API results, keep CSV rows\n    return !keys.includes(\"results\") && !keys.includes(\"total_count\") && keys.length > 0;\n});\n\nif (csvItems.length === 0) throw new Error(\"No valid CSV rows found. Check Parse CSV settings.\");\n\n// 3. Natural Sort (Sorts 1.0 before 1.1)\ncsvItems.sort((a, b) => {\n  const noA = a.json.No ? a.json.No.toString() : \"0\";\n  const noB = b.json.No ? b.json.No.toString() : \"0\";\n  return noA.localeCompare(noB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\n// 4. Map Data\nreturn csvItems.map(item => {\n  const row = item.json;\n  \n  // --- UPDATED FOR NEW CSV ---\n  // Looks for the \"Labels\" column (splitting by comma)\n  const rawLabels = row.Labels || row.Tags || \"\"; \n  \n  const tagIds = rawLabels.split(',')\n    .map(t => t.trim())\n    .filter(t => t.length > 0)\n    .map(t => labelMap[t.toLowerCase()]) // Look up ID (Case Insensitive)\n    .filter(id => id); // Remove nulls\n\n  // State Fallback\n  const firstStateId = Object.values(stateMap)[0];\n  let stateId = stateMap[row.Status] || stateMap[\"Backlog\"] || firstStateId;\n\n  return {\n    json: {\n      ...row,\n      mapped_state: stateId,\n      mapped_member: memberMap[row[\"Assignee Email\"]] || null,\n      mapped_labels: tagIds,\n      clean_priority: row.Priority ? row.Priority.toLowerCase() : \"none\"\n    }\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        -144
+      ],
+      "id": "0acb5ba0-aeee-483c-b5e7-90024222432a",
+      "name": "Prepare & Sort",
+      "notesInFlow": false,
+      "notes": "The \"Brain\" of the operation.\n\n    Maps CSV text (Status, Emails, Tags) to System UUIDs.\n\n    Performs a \"Natural Sort\" to ensure Task 1.0 appears before 1.1.\n\n    Filters out non-task data."
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1792,
+        -144
+      ],
+      "id": "ede07416-b931-47a4-aa17-bab092b29642",
+      "name": "Loop Rows",
+      "notes": "Traffic Control. Splits execution into Batch Size: 1. This forces Serial Execution, allowing Child tasks to \"see\" Parent tasks created milliseconds earlier."
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Access Global Memory\nconst staticData = $getWorkflowStaticData('global');\n\nconst currentItem = $input.item.json;\nconst currentNo = String(currentItem.No).trim();\n\n// -------------------------------------------------------\n// HELPER: The Universal Normalizer (UPDATED)\n// Removes trailing .0 AND trailing dots\n// \"1.0\" -> \"1\"\n// \"8.\"  -> \"8\"\n// -------------------------------------------------------\nconst normalize = (val) => {\n    if (!val) return \"\";\n    let s = String(val).trim();\n    // 1. Remove .0 at the end\n    s = s.replace(/\\.0$/, \"\"); \n    // 2. Remove trailing dot (Fix for \"8.\")\n    s = s.replace(/\\.$/, \"\");\n    return s;\n};\n\n// RESET MEMORY if this is the first item (1 or 1.0)\n// This fixes the \"Stale Memory\" issue automatically on new runs\nconst cleanCurrent = normalize(currentNo);\nif (!staticData.idMap || cleanCurrent === \"1\") {\n    staticData.idMap = {};\n    staticData.lastNo = null;\n}\n\n// 2. LEARN (Save previous item)\nif (staticData.lastNo) {\n    try {\n        const lastResult = $('Create Issue').last();\n        if (lastResult && lastResult.json.id) {\n            const cleanKey = normalize(staticData.lastNo);\n            staticData.idMap[cleanKey] = lastResult.json.id;\n        }\n    } catch (e) {}\n}\n\n// 3. PREPARE CURRENT\nstaticData.lastNo = currentNo; \n\n// 4. CALCULATE PARENT\nconst parts = cleanCurrent.split('.');\nlet parentNo = null;\n\n// Logic: If >1 parts (e.g. \"1.1\"), remove last segment to find parent (\"1\")\n// \"8\" (after cleaning \"8.\") has 1 part -> Root.\nif (parts.length > 1) {\n    parts.pop(); \n    parentNo = parts.join('.');\n}\n\n// 5. LOOKUP\nlet parentId = null;\nif (parentNo) {\n    parentId = staticData.idMap[parentNo];\n}\n\nreturn { \n    json: { \n        ...currentItem, \n        calculated_parent_id: parentId,\n        // Debugging info\n        _debug_clean: cleanCurrent,\n        _debug_parent: parentNo || \"ROOT\"\n    } \n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        -144
+      ],
+      "id": "76e1e77c-2370-490d-8211-7503b6a1fa74",
+      "name": "Parent Lookup",
+      "notes": "Recursive Logic. Uses getWorkflowStaticData (Memory) to learn the IDs of tasks created in previous loop iterations, ensuring correct Parent/Child linking."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.plane.so/api/v1/workspaces/{{ $('Extract Project ID').first().json.workspaceSlug }}/projects/{{ $('Extract Project ID').first().json.projectId }}/issues/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.Name }}"
+            },
+            {
+              "name": "description_html",
+              "value": "=<div> {{    ($json.Notes || '')   .toString()   .replace(/&/g, \"&amp;\")   .replace(/</g, \"&lt;\")   .replace(/>/g, \"&gt;\")   .replace(/\\n/g, \"<br>\")  }} </div>"
+            },
+            {
+              "name": "state_id",
+              "value": "={{ $json.mapped_state }}"
+            },
+            {
+              "name": "priority",
+              "value": "={{ $json.clean_priority }}"
+            },
+            {
+              "name": "parent",
+              "value": "={{ $json.calculated_parent_id }}"
+            },
+            {
+              "name": "assignees",
+              "value": "={{ $json.mapped_member ? [$json.mapped_member] : [] }}"
+            },
+            {
+              "name": "labels",
+              "value": "={{ $json.mapped_labels }}"
+            },
+            {
+              "name": "start_date",
+              "value": "={{ $json[\"Start Date\"] }}"
+            },
+            {
+              "name": "target_date",
+              "value": "={{ $json[\"Due Date\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2240,
+        -144
+      ],
+      "id": "8a0b1d8b-73aa-4eac-9dfa-82055b30d04c",
+      "name": "Create Issue",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Rzwh61ZogiVC8s80",
+          "name": "VT Project Generator"
+        }
+      },
+      "notes": "API Writer. Sends the final POST request to Plane to create the work item with all mapped parameters (Dates, Assignees, Parents)."
+    },
+    {
+      "parameters": {
+        "options": {
+          "headerRow": true
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -272
+      ],
+      "id": "e81c4e20-2945-497d-ae30-d34445b8583a",
+      "name": "Parse CSV",
+      "notes": "Transformer. Converts the binary .csv file into a machine-readable JSON array."
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\n\n// Get the list we built inside the loop\nconst fullList = staticData.importResults || [];\n\nif (fullList.length === 0) {\n    return [{ json: { \"Status\": \"No items collected\" } }];\n}\n\n// Sort by \"No\"\nfullList.sort((a, b) => {\n  const noA = String(a.No || 0);\n  const noB = String(b.No || 0);\n  return noA.localeCompare(noB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\n// Return the list for Google Sheets\nreturn fullList.map(item => ({ json: item }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        -336
+      ],
+      "id": "252db55f-e5eb-420b-a72e-147139a79263",
+      "name": "Generate Report",
+      "notes": "Auditor. Looks back at the execution history to match every CSV Input \"No\" with the resulting Plane \"Work Item ID\" and generates a summary table."
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2672,
+        -80
+      ],
+      "id": "76d93d06-46f9-4d85-b196-e1ce1b573a73",
+      "name": "Wait",
+      "webhookId": "fc6e7f52-03bb-4188-907e-837c530fb496"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get Global Memory\nconst staticData = $getWorkflowStaticData('global');\n\n// 2. Initialize list if empty\nif (!staticData.importResults) {\n    staticData.importResults = [];\n}\n\n// 3. Get Data from current Loop Item\nconst response = $input.item.json; // The ID created in Plane\n// We need the \"No\" from the source. Since 'Create Issue' might not output it,\n// we look at the input that fed into Create Issue (Parent Lookup)\nconst sourceInput = $('Parent Lookup').first().json; \n\n// 4. Push to Memory\nstaticData.importResults.push({\n    \"No\": sourceInput.No,\n    \"Work Item ID\": response.id || \"ERROR\",\n    \"Link\": response.id ? `https://app.plane.so/YOUR_SLUG/projects/${sourceInput.projectId}/issues/${response.id}` : \"N/A\",\n    \"Status\": response.id ? \"Success\" : \"Failed\"\n});\n\nreturn $input.item; // Pass data through to Wait node"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        -144
+      ],
+      "id": "9091543d-9617-4529-9b34-9c0284892aaf",
+      "name": "Log Collector"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Upload CSV Form": {
+      "main": [
+        [
+          {
+            "node": "Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health Check": {
+      "main": [
+        [
+          {
+            "node": "Extract Project ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Project ID": {
+      "main": [
+        [
+          {
+            "node": "Parse CSV",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch States",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch States": {
+      "main": [
+        [
+          {
+            "node": "Fetch Members",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Members": {
+      "main": [
+        [
+          {
+            "node": "Fetch Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Labels": {
+      "main": [
+        [
+          {
+            "node": "Merge Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Data": {
+      "main": [
+        [
+          {
+            "node": "Prepare & Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare & Sort": {
+      "main": [
+        [
+          {
+            "node": "Loop Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Rows": {
+      "main": [
+        [
+          {
+            "node": "Generate Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parent Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parent Lookup": {
+      "main": [
+        [
+          {
+            "node": "Create Issue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Issue": {
+      "main": [
+        [
+          {
+            "node": "Log Collector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse CSV": {
+      "main": [
+        [
+          {
+            "node": "Merge Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Report": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Collector": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e1dcccc8-fbe5-472a-9329-676063174c1f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac66f3afaba244bdb86de88165094069f3e5c9866e149fc9b2a5f36d9485a343"
+  },
+  "id": "69lev1jami73UGZF",
+  "tags": [
+    {
+      "updatedAt": "2025-11-17T15:20:28.966Z",
+      "createdAt": "2025-11-17T15:20:28.966Z",
+      "id": "atQxMIOj1k4FG8Mn",
+      "name": "Internal Services"
+    }
+  ]
+}

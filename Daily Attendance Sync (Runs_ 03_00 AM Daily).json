@@ -1,0 +1,466 @@
+{
+  "name": "Daily Attendance Sync (Runs: 03:00 AM Daily)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        -1168
+      ],
+      "id": "19f442e9-c177-4d8a-bf74-5343c54246bd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://bt.nexus-dxb.duckdns.org/jwt-api-token-auth/",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"username\": \"n8nuser\",\n  \"password\": \"L9DZsE4LJLkicvNi\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        352,
+        -1168
+      ],
+      "id": "8469c29b-7d7f-4f47-9a19-f99425ef3b16",
+      "name": "Get Auth Token",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://bt.nexus-dxb.duckdns.org/att/api/firstLastReport/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "start_date",
+              "value": "={{ $('Set Dates').item.json.start_date }}"
+            },
+            {
+              "name": "end_date",
+              "value": "={{ $('Set Dates').item.json.end_date }}"
+            },
+            {
+              "name": "page_size",
+              "value": "500"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=JWT {{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        576,
+        -1168
+      ],
+      "id": "fe73aca3-2f30-49c1-8cee-9321d86ee28d",
+      "name": "Get Transactions"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3d19d2e3-bd24-42f3-826d-7971d467145a",
+              "name": "start_date",
+              "value": "={{ $now.minus({ days: 1 }).toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "b7557de6-2465-4646-83d4-db5fb6259011",
+              "name": "end_date",
+              "value": "={{ $now.minus({ days: 1 }).toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        -1168
+      ],
+      "id": "d069f2c3-dff6-4806-9485-0c1103dfd46e",
+      "name": "Set Dates"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://peopleplus.zoho.com/people/api/attendance",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "empId",
+              "value": "={{ $json.emp_code }}"
+            },
+            {
+              "name": "checkIn",
+              "value": "={{ $json.att_date + \" \" + $json.first_punch + \":00\" }}"
+            },
+            {
+              "name": "checkOut",
+              "value": "={{ $json.att_date + \" \" + $json.last_punch + \":00\" }}"
+            },
+            {
+              "name": "dateFormat",
+              "value": "yyyy-MM-dd HH:mm:ss"
+            },
+            {
+              "name": "timeZone",
+              "value": "Asia/Dubai"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1472,
+        -1232
+      ],
+      "id": "d28d863a-e581-41c8-8e25-3083c454f428",
+      "name": "Post to Zoho",
+      "retryOnFail": false,
+      "credentials": {
+        "oAuth2Api": {
+          "id": "Md9mU3AFH9wzRgD0",
+          "name": "ZohoPeopleOAuth"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -1168
+      ],
+      "id": "f9593c03-582b-4de2-93a7-70e790b25d17",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "nPft0q5h7Gj7LEnr",
+          "mode": "list",
+          "cachedResultName": "Zoho Sync Errors",
+          "cachedResultUrl": "/projects/WpWKYB2l8XryvdiD/datatables/nPft0q5h7Gj7LEnr"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "EmployeeID": "={{ $('Split Out').item.json.emp_code }}",
+            "ErrorMessage": "={{ $json.error }}",
+            "Date": "={{ $now }}",
+            "EmployeeName": "={{ $('Split Out').item.json.first_name }} {{ $('Split Out').item.json.last_name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "EmployeeID",
+              "displayName": "EmployeeID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "ErrorMessage",
+              "displayName": "ErrorMessage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "EmployeeName",
+              "displayName": "EmployeeName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        -1280
+      ],
+      "id": "5040a56b-86ed-4255-9a8a-cd7121807806",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b16291d9-d92d-4501-acb6-11f66579f06c",
+              "leftValue": "={{ $json.dept_name }}",
+              "rightValue": "Department",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1024,
+        -1168
+      ],
+      "id": "a940f25d-14f6-4848-bb27-6a74e9d42e7b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1248,
+        -1280
+      ],
+      "id": "de87c11f-aeef-4667-bca9-08d8cc08e470",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1696,
+        -1072
+      ],
+      "id": "92c08e5e-637c-452e-bf80-47f7b557d259",
+      "name": "Wait",
+      "webhookId": "6b3f2619-35c8-4eb1-a2ce-34b0e505cd59"
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-11-19T03:00:00.005+04:00",
+          "Readable date": "November 19th 2025, 3:00:00 am",
+          "Readable time": "3:00:00 am",
+          "Day of week": "Wednesday",
+          "Year": "2025",
+          "Month": "November",
+          "Day of month": "19",
+          "Hour": "03",
+          "Minute": "00",
+          "Second": "00",
+          "Timezone": "Asia/Dubai (UTC+04:00)"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Dates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Auth Token": {
+      "main": [
+        [
+          {
+            "node": "Get Transactions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Set Dates": {
+      "main": [
+        [
+          {
+            "node": "Get Auth Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Transactions": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Zoho": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Post to Zoho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timeSavedPerExecution": 240
+  },
+  "versionId": "3950ad22-45f5-4288-9215-d143ecb83056",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac66f3afaba244bdb86de88165094069f3e5c9866e149fc9b2a5f36d9485a343"
+  },
+  "id": "qxFSCoXazXHrBuoW",
+  "tags": [
+    {
+      "updatedAt": "2025-11-17T15:20:28.966Z",
+      "createdAt": "2025-11-17T15:20:28.966Z",
+      "id": "atQxMIOj1k4FG8Mn",
+      "name": "Internal Services"
+    }
+  ]
+}

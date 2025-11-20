@@ -1,0 +1,188 @@
+{
+  "name": "VT-VM-001- Veritas site WP Backup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e0ae2844-0068-4e49-95e3-b4038b29954c",
+      "name": "Weekly Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "command": "# Step 1: Create the DB backup (we know this works)\n/usr/bin/mysqldump --defaults-file=/root/n8nbackup.cnf wordpress > /tmp/wp_db.sql\n\n# Step 2: Clean up old tar files and logs\n/usr/bin/rm -f /tmp/wp_backup.tar.gz /tmp/tar_error.log\n\n# Step 3: Run tar and capture its STDERR to a file\necho \"--- Running tar ---\"\n/bin/tar -czf /tmp/wp_backup.tar.gz /var/www/html /tmp/wp_db.sql 2> /tmp/tar_error.log\n\n# Step 4: Check if the error log has content and print it\n# This will appear in n8n's \"stdout\"\necho \"--- Checking for errors ---\"\ncat /tmp/tar_error.log\n\n# Step 5: Check if the final file was created\necho \"--- Checking final backup file ---\"\nls -lha /tmp/wp_backup.tar.gz"
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "55ad1b59-5204-4d5f-a9b1-c16e6436e560",
+      "name": "Create a .gz file",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "rqooAkbalde1Ka1X",
+          "name": "VT-VM-001 WP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "resource": "file",
+        "operation": "download",
+        "path": "/tmp/wp_backup.tar.gz",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "88a4e2fc-0984-4487-8db7-46bf92d58f7a",
+      "name": "Download .gz file",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "rqooAkbalde1Ka1X",
+          "name": "VT-VM-001 WP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=wg_backup_{{$now.toFormat('yyyy-MM-dd_HH-mm-ss')}}.tar.gz",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1ZAw9xxMlxivE1n9FZ3JRmRYxd_OZpt0f",
+          "mode": "list",
+          "cachedResultName": "Veritas Site",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1ZAw9xxMlxivE1n9FZ3JRmRYxd_OZpt0f"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "89d15762-4fb8-44ae-8153-cea458091d50",
+      "name": "Upload .gz file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "mb2iNBA1gr4PxKRS",
+          "name": "IT @ NS - Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "privateKey",
+        "command": "/usr/bin/rm /tmp/wp_backup.tar.gz"
+      },
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        896,
+        0
+      ],
+      "id": "9a62ead9-c3e1-4182-8214-1ea6a4df21e6",
+      "name": "Remove .gz file from the server",
+      "credentials": {
+        "sshPrivateKey": {
+          "id": "rqooAkbalde1Ka1X",
+          "name": "VT-VM-001 WP"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Weekly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create a .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a .gz file": {
+      "main": [
+        [
+          {
+            "node": "Download .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download .gz file": {
+      "main": [
+        [
+          {
+            "node": "Upload .gz file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload .gz file": {
+      "main": [
+        [
+          {
+            "node": "Remove .gz file from the server",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timeSavedPerExecution": 30
+  },
+  "versionId": "9e7c0dd1-64b7-4e89-be48-665c1d7343b4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac66f3afaba244bdb86de88165094069f3e5c9866e149fc9b2a5f36d9485a343"
+  },
+  "id": "R911dTOQ91Ssmauy",
+  "tags": [
+    {
+      "updatedAt": "2025-11-10T10:28:43.584Z",
+      "createdAt": "2025-11-10T10:28:43.584Z",
+      "id": "aevIYpIkM5mjznF5",
+      "name": "Infrastructure"
+    }
+  ]
+}

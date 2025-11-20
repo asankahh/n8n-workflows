@@ -1,0 +1,641 @@
+{
+  "name": "Nexus-SiGMA 2025 CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "4295d9be-fc27-4432-b3fa-90d37e726a2e",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1648,
+        -352
+      ],
+      "id": "c96b7f8a-eb2c-4102-a8eb-4d2869cbbbd0",
+      "name": "Recieving from form",
+      "webhookId": "4295d9be-fc27-4432-b3fa-90d37e726a2e"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.plane.so/api/v1/workspaces/nexus-solutions/projects/56ccc033-fcc4-4b14-8dd8-28e1d97e8f40/issues/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "type_id",
+              "value": "220554e0-e00d-46af-b69c-c6415c5dcb69"
+            },
+            {
+              "name": "name",
+              "value": "=SiGMA Leads {{ $json.body['First Name'] }} {{ $json.body['Last Name'] }}"
+            },
+            {
+              "name": "description_html",
+              "value": "=<h3>Name: {{ $json.body['First Name'] }} {{ $json.body['Last Name'] }}</h3>\n <ul>\n<li>Contact No: {{ $json.body['Contact No.'] }}</li>\n<li>Email: {{ $json.body.Email }}</li>\n</ul>\n</br>\n<h3>Interested in:</h3>\n<ul>\n<li>Nexus Services: {{ $json.body['Nexus Services'] }}</li>\n<li>Veritas Services: {{ $json.body['Veritas Services'] }}</li>\n</ul>\n</br>\n<h3>Client's Notes:</h3>\n<p>{{ $json.body.Notes }}</p>"
+            },
+            {
+              "name": "parent",
+              "value": "b0060b27-ec0d-43e0-898d-6972191541a5"
+            },
+            {
+              "name": "labels",
+              "value": "={{ $json.body['Assigned Team'] == 'Nexus' ? ['2c47cc29-7fb2-470c-8f6d-f3c4042b3164'] : ($json.body['Assigned Team'] == 'Veritas' ? ['4dc4badd-be30-4141-8a59-ec1b66ee473c'] : []) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        -64
+      ],
+      "id": "1e366803-c755-4b5f-903e-e1f9bfa8676b",
+      "name": "Lead - Creating Plane Work Item",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "MWkivTvxoIhooWHc",
+          "name": "Nexus-SiGMA 2025 CRM"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1UCC5Na8Pd89YQJjLx8dcu20_UcsbdXT_e6UrizNswtM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1767311454,
+          "mode": "list",
+          "cachedResultName": "From Website",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UCC5Na8Pd89YQJjLx8dcu20_UcsbdXT_e6UrizNswtM/edit#gid=1767311454"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "First Name": "={{ $json.body['First Name'] }}",
+            "Last Name": "={{ $json.body['Last Name'] }}",
+            "Email Address": "={{ $json.body.Email }}",
+            "Nexus Services ": "={{ $json.body['Nexus Services'] }}",
+            "Veritas Services ": "={{ $json.body['Veritas Services'] }}",
+            "Notes (Client)": "={{ $json.body.Notes }}",
+            "Responsible Team": "={{ $json.body['Assigned Team'] }}",
+            "Contact No.": "={{ $json.body['Contact No.'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contact No.",
+              "displayName": "Contact No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nexus Services ",
+              "displayName": "Nexus Services ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Veritas Services ",
+              "displayName": "Veritas Services ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes (Client)",
+              "displayName": "Notes (Client)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Responsible Team",
+              "displayName": "Responsible Team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Team memeber",
+              "displayName": "Team memeber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "First Email Date",
+              "displayName": "First Email Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Follow-up Date 1",
+              "displayName": "Follow-up Date 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Follow-up Date 2",
+              "displayName": "Follow-up Date 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Service Offered?",
+              "displayName": "Service Offered?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes (Nexus)",
+              "displayName": "Notes (Nexus)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1200,
+        -256
+      ],
+      "id": "8b9799c6-76a7-4631-80dd-7bb521c32ce6",
+      "name": "Lead - Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dHpISt32RIV2jFCm",
+          "name": "IT @ NS - Sheets OAuth 2.0 Creds"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1UCC5Na8Pd89YQJjLx8dcu20_UcsbdXT_e6UrizNswtM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1985654978,
+          "mode": "list",
+          "cachedResultName": "Leads From Website",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UCC5Na8Pd89YQJjLx8dcu20_UcsbdXT_e6UrizNswtM/edit#gid=1985654978"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "First Name": "={{ $json.body['First Name'] }}",
+            "Last Name": "={{ $json.body['Last Name'] }}",
+            "Email Address": "={{ $json.body.Email }}",
+            "Contact No.": "={{ $json.body['Contact No.'] }}",
+            "Nexus Services ": "={{ $json.body['Nexus Services'] }}",
+            "Veritas Services ": "={{ $json.body['Veritas Services'] }}",
+            "Notes (Client)": "={{ $json.body.Notes }}",
+            "Responsible Team": "={{ $json.body['Assigned Team'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contact No.",
+              "displayName": "Contact No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nexus Services ",
+              "displayName": "Nexus Services ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Veritas Services ",
+              "displayName": "Veritas Services ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes (Client)",
+              "displayName": "Notes (Client)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Responsible Team",
+              "displayName": "Responsible Team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Team memeber",
+              "displayName": "Team memeber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "First Email Date",
+              "displayName": "First Email Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Follow-up Date 1",
+              "displayName": "Follow-up Date 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Follow-up Date 2",
+              "displayName": "Follow-up Date 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Service Offered?",
+              "displayName": "Service Offered?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes (Nexus)",
+              "displayName": "Notes (Nexus)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1200,
+        -448
+      ],
+      "id": "71da425a-23b9-4437-a8f1-15d030c0703c",
+      "name": "Vendor - Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dHpISt32RIV2jFCm",
+          "name": "IT @ NS - Sheets OAuth 2.0 Creds"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.plane.so/api/v1/workspaces/nexus-solutions/projects/56ccc033-fcc4-4b14-8dd8-28e1d97e8f40/issues/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "type_id",
+              "value": "220554e0-e00d-46af-b69c-c6415c5dcb69"
+            },
+            {
+              "name": "name",
+              "value": "=SiGMA Vendor {{ $json.body['First Name'] }} {{ $json.body['Last Name'] }}"
+            },
+            {
+              "name": "description_html",
+              "value": "=<h3>Name: {{ $json.body['First Name'] }} {{ $json.body['Last Name'] }}</h3>\n <ul>\n<li>Contact No: {{ $json.body['Contact No.'] }}</li>\n<li>Email: {{ $json.body.Email }}</li>\n</ul>\n</br>\n<h3>Interested in:</h3>\n<ul>\n<li>Nexus Services: {{ $json.body['Nexus Services'] }}</li>\n<li>Veritas Services: {{ $json.body['Veritas Services'] }}</li>\n</ul>\n</br>\n<h3>Client's Notes:</h3>\n<p>{{ $json.body.Notes }}</p>\n  \n \n"
+            },
+            {
+              "name": "parent",
+              "value": "4e4adf60-36f2-4fc7-9544-1c97029feb46"
+            },
+            {
+              "name": "labels",
+              "value": "={{ $json.body['Assigned Team'] == 'Nexus' ? ['2c47cc29-7fb2-470c-8f6d-f3c4042b3164'] : ($json.body['Assigned Team'] == 'Veritas' ? ['4dc4badd-be30-4141-8a59-ec1b66ee473c'] : []) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        -640
+      ],
+      "id": "0c5b6702-b280-473e-a830-312eac22a345",
+      "name": "Vendor - Creating Plane Work Item",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "MWkivTvxoIhooWHc",
+          "name": "Nexus-SiGMA 2025 CRM"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.Type }}",
+                    "rightValue": "Vendor",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1248cf3d-cb07-41b6-82f0-c654f3c98bb9"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Vendor"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "990ad4b8-7c16-4817-aa34-2f4c954a1f97",
+                    "leftValue": "={{ $json.body.Type }}",
+                    "rightValue": "Lead",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Lead"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -1424,
+        -352
+      ],
+      "id": "73fa8119-abed-4cc4-832f-ee678568187b",
+      "name": "Switch"
+    }
+  ],
+  "pinData": {
+    "Recieving from form": [
+      {
+        "json": {
+          "headers": {
+            "connection": "close",
+            "host": "n8n.nexus-dxb.duckdns.org",
+            "x-forwarded-scheme": "https",
+            "x-forwarded-proto": "https",
+            "x-forwarded-for": "92.204.20.214",
+            "x-real-ip": "92.204.20.214",
+            "content-length": "259",
+            "user-agent": "WordPress/6.8.3; https://nexus-solutions.io",
+            "accept": "*/*",
+            "accept-encoding": "deflate, gzip, br, zstd",
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "Type": "Vendor",
+            "First Name": "Asanka",
+            "Last Name": "Hendahewa",
+            "Email": "asanka.h@nexus-solutions.io",
+            "Contact No.": "",
+            "Nexus Services": "",
+            "Veritas Services": "",
+            "Notes": "Test Vendor - Lead option by Asanka. Do not action on this.",
+            "Assigned Team": "Nexus",
+            "form_id": "63f795a",
+            "form_name": "SiGMA CRM Form"
+          },
+          "webhookUrl": "https://n8n.nexus-dxb.duckdns.org/webhook/4295d9be-fc27-4432-b3fa-90d37e726a2e",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Recieving from form": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead - Creating Plane Work Item": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Vendor - Creating Plane Work Item",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Vendor - Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lead - Creating Plane Work Item",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lead - Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "U7OeElKujMbhU76Z",
+    "timeSavedPerExecution": 15
+  },
+  "versionId": "05ee527e-4858-480c-8ba7-de95d469f54f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ac66f3afaba244bdb86de88165094069f3e5c9866e149fc9b2a5f36d9485a343"
+  },
+  "id": "U7OeElKujMbhU76Z",
+  "tags": [
+    {
+      "updatedAt": "2025-11-10T10:28:56.370Z",
+      "createdAt": "2025-11-10T10:28:56.370Z",
+      "id": "VeuGzv8ray87x6Kr",
+      "name": "Marketing"
+    }
+  ]
+}
