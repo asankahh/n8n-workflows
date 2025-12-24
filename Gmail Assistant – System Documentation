@@ -1,0 +1,158 @@
+# 📧 Gmail Assistant – System Documentation
+
+### **1. System Overview**
+
+This workflow automatically categorizes incoming emails using AI and applies the corresponding Gmail Label. It uses a **Google Sheet** as the "Rule Book," allowing you to update categories and descriptions without touching the code.
+
+**Key Features:**
+
+* **Dynamic Rules:** Fetches rules from Google Sheets on every run.
+* **Smart Matching:** Automatically finds Gmail labels that match your Sheet categories (e.g., "Marketing" in Sheet → "MyFinance/Marketing" in Gmail).
+* **Safety Limits:** Includes wait timers to prevent Google API bans.
+* **System Filtering:** automatically ignores internal Gmail tags like `CATEGORY_PROMOTIONS` or `SENT` to find your custom labels.
+
+---
+
+### **2. Workflow Diagram**
+
+**Sequential Flow:**
+
+1. **`Gmail Trigger`**: Detects a new email.
+2. **`Get labels`**: Fetches *all* existing labels from your Gmail account.
+3. **`Get Label Map`**: Fetches the "Rules" (Category + Description) from your Google Sheet.
+4. **`Restore Emails`**: *Critical Step.* Discards the Sheet data from the stream and brings back the original Email data for processing.
+5. **`The Traffic Control`**: (Loop) Processes emails one by one.
+
+**Inside the Loop:**
+
+* **Path A (Logging):** Writes the email details to a "Log" sheet for auditing.
+* **Path B (Processing):**
+1. **`Contacting GroqLlama`**: AI analyzes the email content against the Sheet rules.
+2. **`The Unpacker`**: Converts AI text response into usable JSON data.
+3. **`Dynamic Resolver`**: Matches the AI's "Category" to a real "Gmail Label ID".
+4. **`Gmail - Label Manager`**: Applies the label to the email.
+5. **`Wait`**: Pauses for 2 seconds to respect API rate limits.
+
+
+
+---
+
+### **3. Key Node Configurations**
+
+#### **A. Restore Emails (Code Node)**
+
+* **Purpose:** The workflow "forgets" the emails after fetching the Google Sheet rows. This node forces it to remember them.
+* **Code:**
+```javascript
+// We ignore the input (Sheet Data) and return the original Emails instead
+return $('Gmail Trigger').all();
+
+```
+
+
+
+#### **B. Contacting GroqLlama (AI Agent)**
+
+* **Model:** `llama-3.1-8b-instant` (Fast, efficient, high rate limit).
+* **Prompt Logic:** Dynamically injects rules from the `Get Label Map` node.
+* **Prompt Expression:**
+```javascript
+// Fetches rows, removes blanks, formats as "Category: Description", and deduplicates.
+{{ 
+  $('Get Label Map').all()
+    .filter(row => row.json.Category && row.json.Category.toString().trim() !== '')
+    .map(row => "- " + row.json.Category + ": " + (row.json.Description || "No description"))
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .join("\n") 
+}}
+
+```
+
+
+
+#### **C. Dynamic Resolver (Code Node)**
+
+* **Purpose:** The "Bridge" between AI and Gmail. It finds the correct ID for the chosen category.
+* **Key Logic:** It explicitly filters out system labels (`CHAT`, `SENT`, `CATEGORY_*`) so it only applies *your* custom labels.
+* **Code:**
+```javascript
+// 1. Get the AI Category
+const aiCategory = ($json.category || 'Review').toString().toLowerCase().trim();
+
+// 2. Access Context & Filter System Labels
+const allGmailLabels = $('Get labels').all(); 
+const userLabels = allGmailLabels.filter(item => {
+  const id = item.json.id;
+  const type = item.json.type;
+  // Keep only 'user' types OR specific system ones (TRASH/SPAM)
+  return type === 'user' || id === 'TRASH' || id === 'SPAM'; 
+});
+
+const sheetRows = $('Get Label Map').all(); 
+
+// 3. Determine Target Name (Map AI Category -> Sheet Category)
+const validCategories = sheetRows.map(row => 
+  (row.json.Category || '').toLowerCase().trim()
+);
+
+let targetName = 'INBOX';
+if (validCategories.includes(aiCategory)) {
+  const originalRow = sheetRows.find(row => (row.json.Category || '').toLowerCase().trim() === aiCategory);
+  targetName = originalRow ? originalRow.json.Category : aiCategory;
+}
+
+// 4. Find the Gmail Label ID
+let targetId = 'INBOX';
+
+if (targetName.toLowerCase() === 'to delete') {
+  targetId = 'TRASH';
+} else {
+  // Fuzzy Match: Exact Name OR Ends With Name (e.g., "Finance/Marketing")
+  const match = userLabels.find(l => 
+    l.json.name.toLowerCase() === targetName.toLowerCase() || 
+    l.json.name.toLowerCase().endsWith('/' + targetName.toLowerCase())
+  );
+
+  if (match) targetId = match.json.id;
+}
+
+// 5. Return
+return {
+  json: {
+    targetLabelId: targetId,
+    appliedName: targetName,
+    messageId: $('The Traffic Control').item.json.id
+  }
+};
+
+```
+
+
+
+---
+
+### **4. Requirements Setup**
+
+#### **Google Sheet Structure**
+
+Your Google Sheet must have a tab named `Categories` with these exact headers:
+
+1. **`Category`** (Matches your Gmail Label name, e.g., "Marketing", "Family").
+2. **`Description`** (Instructions for the AI, e.g., "Promotions from Samsung, Uber").
+
+#### **Gmail Setup**
+
+* **Labels:** For every `Category` in your sheet, a corresponding Label must exist in Gmail.
+* **Naming:** The matching is smart. If your sheet says **"Marketing"**, it will match a Gmail label named **"Marketing"** OR **"MyFinance/Marketing"**.
+
+---
+
+### **5. Troubleshooting Guide**
+
+| Issue | Cause | Solution |
+| --- | --- | --- |
+| **Label not applying** | The label exists in Sheet but not in Gmail. | Create the label in Gmail (e.g., "Family"). |
+| **Missing Labels** | `Get labels` node limit is too low. | Open `Get labels` node and set **Limit** to `100` or `0` (All). |
+| **"Request too large"** | Email snippet is huge. | Ensure snippet expression uses `.slice(0, 1000)`. |
+| **Google Sheet 429 Error** | "Too many requests" from frequent testing. | Wait 60 seconds, or use "Pin Data" on the Sheet node while testing. |
+| **AI Hallucinations** | AI picking wrong category. | Update the **Description** in your Google Sheet to be more specific. |
